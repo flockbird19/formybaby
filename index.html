@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Special Girl ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            background-color: #ffe4e1;
+            font-family: 'Lato', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        h1, .section-title { color: #d02090; text-align: center; }
+
+        .buttons { margin-top: 20px; display: flex; justify-content: center; align-items: center; }
+
+        button {
+            padding: 15px 30px; font-size: 1.2rem; border-radius: 20px;
+            border: none; cursor: pointer; transition: 0.3s;
+        }
+
+        #yesButton { background-color: #ff69b4; color: white; z-index: 10; }
+        #noButton { background-color: #808080; color: white; margin-left: 50px; position: relative; }
+
+        /* Love Bar Styles */
+        #outline { width: 300px; border: 3px solid #ff69b4; border-radius: 20px; padding: 5px; margin: 0 auto; }
+        #fill { width: 0%; height: 20px; background: #ff69b4; border-radius: 20px; transition: width 0.1s; }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            50% { transform: translate(1px, -1px) rotate(1deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .exploding { animation: shake 0.1s infinite; }
+
+        .message-box {
+            max-width: 500px; background: white; padding: 20px; border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); margin: 20px auto;
+        }
+
+        .sticky-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .sticky-note { 
+            background: #fff3a3; padding: 20px; width: 170px; min-height: 170px; 
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.1); transform: rotate(-2deg); 
+            font-size: 0.9rem; line-height: 1.4;
+        }
+
+        .polaroid-gallery { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 20px; }
+        .polaroid { 
+            background: white; padding: 15px 15px 30px 15px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); transform: rotate(2deg); 
+        }
+        .polaroid img { width: 200px; height: 250px; object-fit: cover; }
+
+        #datePicker { padding: 10px; border-radius: 10px; border: 2px solid #ff69b4; }
+        #planButton { background: #ff69b4; color: white; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="valentine-container">
+    <h1>Will you be my Valentine? ❤️</h1>
+    <div class="buttons">
+        <button id="yesButton" onclick="startLoading()">Yes!</button>
+        <button id="noButton">No :(</button>
+    </div>
+
+    <div id="love-bar-container" style="display:none; margin-top: 30px;">
+        <p id="bar-text">Calculating love levels...</p>
+        <div id="outline">
+            <div id="fill"></div>
+        </div>
+    </div>
+</div>
+
+<div id="main-content">
+    <div id="special-message" class="message-box" style="display:none;">
+        <p id="typed-text"></p>
+    </div>
+
+    <div id="hidden-sections" style="display:none;">
+        <div id="message-two" class="message-box">
+            <p id="typed-text-two"></p>
+        </div>
+
+        <div id="sticky-section" style="display:none;">
+            <h2 class="section-title">Reasons Why I Love You</h2>
+            <div class="sticky-container">
+                <div class="sticky-note">Your cutie cutie smile</div>
+                <div class="sticky-note">The way you are always here to support me</div>
+                <div class="sticky-note">Your dum dum sense of humour</div>
+                <div class="sticky-note">How you never make me think im very hard to be with</div>
+                <div class="sticky-note">The way my life slows down whenever im with you</div>
+                <div class="sticky-note">And also the way I think im already married to you thats how easy u are to be withhhh</div>
+                <div class="sticky-note">The way i can be goofy with you i litearally feel like a babyyyy around you hehe</div>
+                <div class="sticky-note">Our talks is the best thing in my life rnnnn i love the way uyou talk and i could listen to you foreverrrrrr</div>
+                <div class="sticky-note">ik i act like i dont like it when you scold me but trust me I LOVE IT</div>
+                <div class="sticky-note">And i love the fact that ur so real w meeee</div>
+                <div class="sticky-note">Stay with me forever bb ill cry otherwise</div>
+                <div class="sticky-note">I LOVE YOU BABYYYY MUAHHHHHHHH!!!!</div>
+            </div>
+            
+            <div id="message-three" class="message-box" style="margin-top: 50px;">
+                <p id="typed-text-three"></p>
+            </div>
+        </div>
+
+        <div id="polaroid-section" style="display:none;">
+            <h2 class="section-title">Cutie pics (we need more pics togetherrrrr!!!!!!!)</h2>
+            <div class="polaroid-gallery">
+                <div class="polaroid"><img src="https://i.ibb.co/bjdr1rRw/pic1.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/LD7jQQjm/pic2.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/psY2c80/pic3.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/RGRBKGh8/pic4.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/qSLRpys/pic5.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/qMHSqGFX/pic6.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/hJxhn3Tt/pic7.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/MD1mQg64/pic8.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/M5PG5fWV/pic9.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/MWrmzjW/pic10.jpg"></div>
+                <div class="polaroid"><img src="https://i.ibb.co/nq3TDvHj/pic11.jpg"></div>
+            </div>
+            
+            <h2 class="section-title">Pick a Day for Our Date</h2>
+            <div style="text-align:center; margin-bottom: 100px;">
+                <input type="date" id="datePicker">
+                <button id="planButton" onclick="confirmDate()">Plan it!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const noButton = document.getElementById('noButton');
+
+    noButton.addEventListener('mouseover', () => {
+        noButton.style.position = 'fixed';
+        const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+        noButton.style.left = `${x}px`;
+        noButton.style.top = `${y}px`;
+    });
+
+    function startLoading() {
+        document.querySelector('.buttons').style.display = 'none';
+        document.getElementById('love-bar-container').style.display = 'block';
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                document.getElementById('bar-text').innerHTML = "ERROR: TOO MUCH LOVE! ❤️💥";
+                document.getElementById('outline').classList.add('exploding');
+                setTimeout(triggerExplosion, 1500);
+            } else {
+                width++;
+                document.getElementById('fill').style.width = width + '%';
+            }
+        }, 30);
+    }
+
+    function triggerExplosion() {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff69b4', '#ff1493', '#ffffff'] });
+        document.getElementById('valentine-container').style.display = 'none';
+        nextStep();
+    }
+
+    function typeEffect(elementId, text, callback) {
+        let i = 0;
+        const element = document.getElementById(elementId);
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 40);
+            } else if (callback) {
+                setTimeout(callback, 800);
+            }
+        }
+        type();
+    }
+
+    function nextStep() {
+        document.getElementById('special-message').style.display = 'block';
+        typeEffect("typed-text", "I could have just sent a text... but I didn't do that because you're special. I wanted to build something as unique as you are. ❤️", () => {
+            document.getElementById('hidden-sections').style.display = 'block';
+            typeEffect("typed-text-two", "There are a million reasons why I adore you, but here are just a few...", () => {
+                document.getElementById('sticky-section').style.display = 'block';
+                typeEffect("typed-text-three", "Every moment with you is a treasure. Looking back at these makes me so happy:", () => {
+                    document.getElementById('polaroid-section').style.display = 'block';
+                });
+            });
+        });
+    }
+
+    function confirmDate() {
+        const date = document.getElementById('datePicker').value;
+        if (date) {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            alert("It's a date! See you on " + date + " ❤️");
+        } else {
+            alert("Please pick a date!");
+        }
+    }
+</script>
+</body>
+</html>
